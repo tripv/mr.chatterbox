@@ -1,6 +1,6 @@
-# Victoriana
+# Mr. Chatterbox
 
-Victoriana is a family of small language models trained from scratch on 19th-century British printed material (1800–1899).
+Mr. Chatterbox is a family of small language models trained from scratch on 19th-century British printed material (1800–1899).
 The aim is authenticity over capability: models that write in genuinely Victorian conceptual frameworks, not a modern model doing a Victorian impression.
 
 This repository contains:
