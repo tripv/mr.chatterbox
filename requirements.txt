@@ -1,0 +1,9 @@
+# Training used torch 2.11 (CUDA 12.8 build for Blackwell/sm_100); checkpoints were saved with
+# transformers 5.14.1.
+torch>=2.11
+transformers>=5.0
+tokenizers>=0.22
+pyarrow
+numpy
+scipy
+# optional: flash-attn (no Blackwell wheel at the time of training; the released models used --attn sdpa)
