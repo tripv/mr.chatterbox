@@ -7,7 +7,8 @@ This repository contains:
 
 - the pretraining code;
 - the tokenizer and the code that trained it;
-- the hyperparameters for the four base models.
+- the hyperparameters for the four base models;
+- reference code for the three methods that built the dialogue fine-tuning data ([sft_pipeline/](sft_pipeline/README.md)).
 
 | model | parameters | training tokens | weights |
 |---|---|---|---|
@@ -40,6 +41,7 @@ tokenizer_training/
   tokenizer_sample.py        builds the balanced per-source training/eval text sample
   tokenizer_train_v2.py      trains the byte-level BPE with the reserved tokens
   tokenizer_fertility.py     measures chars/token on the held-out sample
+sft_pipeline/              reference code for building the dialogue fine-tuning data (see its README)
 tokenizer/
   victoriana-v2-65536/       the tokenizer the models use (tokenizer.json + CARD.md)
   source_chars.json          in-band character count per source (cache for tokenizer_fertility.py)
