@@ -93,4 +93,18 @@ Their architectures are confirmed by each checkpoint's `config.json`.
 
 ## Held-out perplexity
 
-*Being measured.* All four models will be scored on one shared sample of 2,000 held-out sequences of 2,048 tokens each, drawn uniformly from the held-out split. Results, with bits per byte (BPB), will be added here.
+All four models were scored on the **same** sample: 2,000 sequences of 2,048 tokens each.
+
+- **Sample:** drawn uniformly at random (seed 42) from the 141,185 packed sequences in the held-out split. Its source mix matches the corpus: 66.7% HathiTrust, 8.4% Wellcome, 4.3% British Library, and so on.
+- **Scoring:** fp32 weights, scored one sequence at a time. Loss on the `[year][source][ocr]` prefix tokens is masked, as in training.
+- **Confidence intervals:** 95%, from the per-sequence loss.
+- **Bits per byte (BPB):** total loss (in bits) divided by the UTF-8 bytes of the predicted text. Unlike perplexity, it doesn't depend on the tokenizer.
+
+| size | mean loss (nats) | perplexity | 95% CI | BPB |
+|---|---|---|---|---|
+| 345M | 2.965 ± 0.011 | 19.39 | 18.99 – 19.80 | 1.117 |
+| 500M | 2.846 ± 0.010 | 17.22 | 16.87 – 17.57 | 1.072 |
+| 1.2B | 2.632 ± 0.010 | 13.91 | 13.63 – 14.19 | 0.992 |
+| 2.7B | 2.488 ± 0.012 | 12.04 | 11.76 – 12.33 | 0.937 |
+
+Earlier figures for 345M, 500M and 1.2B (15.74 / 14.95 / 12.39) were measured on a sample that under-represented HathiTrust. They are not comparable with this table.
