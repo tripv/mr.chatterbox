@@ -70,6 +70,23 @@ Each parquet shard needs four columns: `text`, `year` (int), `source` and `htid`
 
 The corpus itself is not distributed with this repository.
 
+## Data sources and attribution
+
+The pretraining corpus draws on text from these sources, restricted to 1800–1899:
+
+- HathiTrust
+- Institutional Books 1.0
+- British Library (blbooks)
+- Project Gutenberg
+- Internet Archive (National Library of Scotland, UK Medical Heritage Library, Wellcome Collection, European libraries)
+- Encyclopaedia Britannica
+- NCSE
+- Old Bailey Proceedings
+- Hansard
+- House of Commons "Blue Books"
+
+*Institutional Books* provided by the Institutional Data Initiative with source material contributed by Harvard Library, available at [https://institutional.org/institutional-books](https://institutional.org/institutional-books).
+
 ## Tokenizer
 
 The models use `tokenizer/victoriana-v2-65536/tokenizer.json`:
@@ -146,4 +163,6 @@ No checkpoint exists yet.
 
 ## License
 
-MIT. See [LICENSE](LICENSE). `muon.py` is adapted from MIT-licensed upstream code; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+- **Code (this repository):** MIT. See [LICENSE](LICENSE). `muon.py` is adapted from MIT-licensed upstream code; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+- **Model weights (Hugging Face):** [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+  Parts of the training corpus are licensed for noncommercial use only, and some carry a share-alike requirement. The weights inherit those terms; the code does not.
