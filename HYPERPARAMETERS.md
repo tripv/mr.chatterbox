@@ -73,6 +73,25 @@ The device batch size only sets how the 524,288-token step is split across GPUs 
 - **Attention:** flash-attn has no Blackwell build, so the released models were trained with PyTorch SDPA plus an explicit per-document attention mask (`--attn sdpa`, document masking on).
 - **NCCL:** set `NCCL_NVLS_ENABLE=0`; see `run_probes.sh`.
 
+## Compute
+
+All four released base models were trained back to back on a single rented 8×B200 instance (Vast.ai), which ran for 106.2 hours.
+The split between models is reconstructed from when each checkpoint finished, so treat it as approximate.
+
+| model | wall-clock | B200 GPU-hours |
+|---|---|---|
+| 345M | ~5.1 h (includes instance setup and loading the corpus) | ~41 |
+| 500M | ~6.4 h | ~51 |
+| 1.2B | ~20.5 h | ~164 |
+| 2.7B | ~74 h | ~592 |
+| **total** | **106.2 h** | **~850** |
+
+The 345M figure overstates its training cost: a small model spread across eight GPUs runs inefficiently, and an earlier single-GPU run of the same configuration took about 12 GPU-hours.
+
+- **Cost of the released models:** about $5,300 in GPU time, plus about $210 for storage and data transfer.
+- **Full pretraining effort:** about $9,300 in total, including superseded runs, failed starts, an abandoned first 2.7B attempt and post-training evaluation.
+- **Fine-tuning:** a 2.7B fine-tuning run takes about 1.3 GPU-hours on one B200.
+
 ## How these values were established
 
 The original pretraining logs were lost. The values above are the trainer's defaults (`train_victoriana.py`), which the base runs used. Only the device batch size was set by hand, and it does not affect training (see above).
