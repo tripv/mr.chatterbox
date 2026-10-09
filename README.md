@@ -154,6 +154,39 @@ print(tok.decode(out[0].tolist()))
 ```
 
 These are base (pretrained-only) models. They continue text; they are not tuned for conversation.
+A conversational version of the 2.7B model is at [tventurella/Mr.Chatterbox-2.7B-Chat](https://huggingface.co/tventurella/Mr.Chatterbox-2.7B-Chat).
+
+## Evaluation: Chronologic-EN
+
+[Chronologic-EN 1.0](https://github.com/Historical-AI-Lab/Chronologic-EN) (Historical AI Lab, UIUC) tests whether a model can answer as a writer of a given date would.
+It has 866 questions drawn from texts published between 1831 and 1930.
+We scored the released 2.7B base model and the 2.7B chat model with the benchmark's own likelihood scorer. Only the model loader was adapted, for our tokenizer and chat format.
+The table puts them alongside the published leaderboard ([leaderboard_1.0.md](https://github.com/Historical-AI-Lab/Chronologic-EN/blob/main/results/likelihood/leaderboard_1.0.md)).
+Brier is calibrated, as on the leaderboard (median of 1,000 bootstrap draws, with the 95% interval); lower is better.
+
+| model | overall Brier [95% CI] | cloze acc. | constrained generation acc. | knowledge & inference acc. |
+|---|---|---|---|---|
+| Talkie 1930 base | 0.1574 [0.1551, 0.1596] | 39.5% | 24.9% | 44.0% |
+| **Mr. Chatterbox 2.7B (base)** | **0.1588 [0.1567, 0.1610]** | 34.4% | 27.1% | 44.4% |
+| Talkie 1930 it | 0.1593 [0.1569, 0.1616] | 37.4% | 23.8% | 25.1% |
+| Qwen 7B ft (ckpt-3500) | 0.1601 [0.1579, 0.1621] | 36.2% | 14.9% | 34.4% |
+| **Mr. Chatterbox 2.7B-Chat** | **0.1603 [0.1581, 0.1626]** | 35.3% | 27.4% | 23.8% |
+| Gemma 4 31B base | 0.1606 [0.1585, 0.1626] | 23.0% | 13.3% | 40.6% |
+| Qwen 72B | 0.1607 [0.1586, 0.1627] | 10.8% | 8.8% | 38.0% |
+| Qwen 3.5 35B-A3B base | 0.1623 [0.1603, 0.1643] | 12.6% | 8.0% | 37.1% |
+| Talkie web base | 0.1627 [0.1606, 0.1646] | 18.2% | 13.6% | 34.1% |
+| Qwen 7B | 0.1628 [0.1608, 0.1648] | 8.6% | 9.5% | 37.0% |
+| GPT-2 (124M, our run) | 0.1635 [0.1615, 0.1656] | 16.0% | 16.8% | 34.2% |
+
+Rows in bold are ours. The other rows are the benchmark authors' published results.
+
+- **The 2.7B base model is second on the leaderboard,** behind Talkie 1930 base (13B). Their 95% intervals overlap.
+- **Our corpus ends in 1899, but 38% of the questions (329) come from texts published 1900–1930.** Talkie 1930 was trained on text up to 1930. Even so, overall accuracy barely moves across the line (35.2% before 1900, 34.3% after), because most questions test period language and reasoning rather than knowledge of a particular text.
+  The cutoff does show on the questions that need post-1899 knowledge: the base model answers none of the 16 post-1900 knowledge questions correctly.
+- **Dialogue fine-tuning roughly halves knowledge-and-inference accuracy** (44.4% → 23.8%). Talkie shows a similar drop from base to instruction-tuned (44.0% → 25.1%).
+  In our case the loss is almost entirely on the abstention questions, where the right answer is to decline. The base model declines on 56 of 62, the chat model on 7, because Mr. Chatterbox is trained to stay in character and answer.
+  On the knowledge questions themselves, the chat model does slightly better than the base (35 of 94 correct, against 27).
+- **Overlap with our corpus:** at least 19 of the benchmark's 213 source books (9%) are also in our pretraining corpus, matched by library barcode. Other editions were not checked, so this is a lower bound.
 
 ## Planned: the Great Exhibition model
 
