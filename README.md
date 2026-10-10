@@ -166,9 +166,9 @@ Brier is calibrated, as on the leaderboard (median of 1,000 bootstrap draws, wit
 
 | model | overall Brier [95% CI] | cloze acc. | constrained generation acc. | knowledge & inference acc. |
 |---|---|---|---|---|
-| Talkie 1930 base | 0.1574 [0.1551, 0.1596] | 39.5% | 24.9% | 44.0% |
+| talkie-1930-13b-base | 0.1574 [0.1551, 0.1596] | 39.5% | 24.9% | 44.0% |
 | **Mr. Chatterbox 2.7B (base)** | **0.1588 [0.1567, 0.1610]** | 34.4% | 27.1% | 44.4% |
-| Talkie 1930 it | 0.1593 [0.1569, 0.1616] | 37.4% | 23.8% | 25.1% |
+| talkie-1930-13b-it | 0.1593 [0.1569, 0.1616] | 37.4% | 23.8% | 25.1% |
 | Qwen 7B ft (ckpt-3500) | 0.1601 [0.1579, 0.1621] | 36.2% | 14.9% | 34.4% |
 | **Mr. Chatterbox 2.7B-Chat** | **0.1603 [0.1581, 0.1626]** | 35.3% | 27.4% | 23.8% |
 | Gemma 4 31B base | 0.1606 [0.1585, 0.1626] | 23.0% | 13.3% | 40.6% |
@@ -180,7 +180,7 @@ Brier is calibrated, as on the leaderboard (median of 1,000 bootstrap draws, wit
 
 Rows in bold are ours. The other rows are the benchmark authors' published results.
 
-- **The 2.7B base model is second on the leaderboard,** behind Talkie 1930 base (13B). Their 95% intervals overlap.
+- **The 2.7B base model is second on the leaderboard,** behind talkie-1930-13b-base. Their 95% intervals overlap.
 - **Our corpus ends in 1899, but 38% of the questions (329) come from texts published 1900–1930.** Talkie 1930 was trained on text up to 1930. Even so, overall accuracy barely moves across the line (35.2% before 1900, 34.3% after), because most questions test period language and reasoning rather than knowledge of a particular text.
   The cutoff does show on the questions that need post-1899 knowledge: the base model answers none of the 16 post-1900 knowledge questions correctly.
 - **Dialogue fine-tuning roughly halves knowledge-and-inference accuracy** (44.4% → 23.8%). Talkie shows a similar drop from base to instruction-tuned (44.0% → 25.1%).
