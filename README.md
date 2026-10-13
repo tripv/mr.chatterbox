@@ -188,11 +188,9 @@ Rows in bold are ours. The other rows are the benchmark authors' published resul
   On the knowledge questions themselves, the chat model does slightly better than the base (35 of 94 correct, against 27).
 - **Overlap with our corpus:** at least 19 of the benchmark's 213 source books (9%) are also in our pretraining corpus, matched by library barcode. Other editions were not checked, so this is a lower bound.
 
-## Planned: the Great Exhibition model
+## Planned: a model charter
 
-A fifth model, **Great Exhibition**, is planned but not yet trained. It is about 670M parameters and trained only on text from 1850 or earlier.
-Its config is already in `llama_probe_configs.py`. `train_victoriana.py --size Great-Exhibition` will run it, defaulting to `--year-max 1850` and a budget of 20 × params (about 13.3B tokens, roughly all the pre-1851 text in the corpus).
-No checkpoint exists yet.
+We are planning on releasing a model spec—the Mr. Chatterbox Model Charter—in the near future.
 
 ## License
 
