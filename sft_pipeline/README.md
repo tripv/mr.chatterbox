@@ -1,15 +1,13 @@
 # SFT data construction
+**Here There Be Dragons**
 
-This folder holds reference implementations of the three methods that built the dialogue fine-tuning (SFT) data for the Mr. Chatterbox models.
-
-**The shared invariant: the assistant turn is always real 19th-century text, never written by an LLM or by us.** The methods differ only in where the *user* turn comes from.
-Every method below is a way of finding a question for an answer that already exists. That invariant is what lets the project claim the model's replies carry no synthetic contemporary viewpoint.
-
-In the literature this family is **back-translation**: derive the input from the output.
-Two of the three methods map onto the project's original names, "Behavioral Back Translation" and "Factual Back Translation."
+This folder holds reference implementations of the methods that helped build the dialogue fine-tuning (SFT) data for the Mr. Chatterbox models. This code was written by Claude Code, Opus 4.6-5.5. This is research code, provided as-is. You can find the SFT dataset built by this code at https://huggingface.co/datasets/tventurella/Mr.Chatterbox-SFT.
 
 > **These are reference implementations, not a turnkey pipeline.** They expect the project's pretraining corpus (parquet shards), raw HathiTrust/Gutenberg/Internet Archive dumps, and intermediate files at the paths hard-coded near the top of each script. Several stages also call an LLM: a local MLX model (Qwen2.5-32B-Instruct, 4-bit), or the Anthropic or OpenAI APIs with keys read from `ANTHROPIC_API_KEY` / `OPENAI_API_KEY`. Generally, we found using API calls was more successful than using local MLX models. 
 > The code is published to document *how* the data was built. Expect to adapt paths and inputs before running anything.
+
+**The assistant turn is always real 19th-century text, never written by an LLM or by us.** The methods differ only in where the *user* turn comes from.
+Every method below is a way of finding a prompt for a passage that already exists. That invariant is what lets the project claim the model's replies carry no synthetic contemporary viewpoint. In the literature this family is **back-translation**: derive the input from the output.
 
 > **About the user turns shown in the code.** Several prompts and rubrics originally contained real user messages from the deployed chatbot's private usage logs, used as style examples or few-shot cases. Those have been **replaced with authored stand-ins** of the same kind for this release.
 > Because of that, the prompts here are not byte-identical to the ones that produced the released data. The method and logic are unchanged.
